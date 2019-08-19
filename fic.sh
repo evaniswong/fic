@@ -32,19 +32,6 @@ do
 	if [ "$country" != "CN" ]; then
 		logger -t "FIC" "ChinaServer incorrect: $country, try next server: $server."
 		
-		let index+=1
-		eval server="\$"server${index}
-		if [ -z "$server" ]; then 
-			index=0
-			logger -t "FIC:" "ChinaServer run over. Sleep 60sec."
-			sleep 60
-		else
-			killall ss-redir
-			sleep 2
-			ss-redir -s $server -p $ss_router_port -l 1008 -b 0.0.0.0 -k $ss_passwd -m $method -u -f /tmp/tocn_ss.pid
-			sleep 3
-		fi
-			
 	else
 		logger -t "FIC" "Country Check: $country, next checkpoint: 120sec."
 		sleep 120 #等120秒继续监测地区代码
